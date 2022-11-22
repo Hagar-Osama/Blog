@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ArticalController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,12 +29,12 @@ Route::controller(CategoryController::class)->prefix('category')->as('category.'
     Route::delete('/delete', 'destroy')->name('destroy');
 });
 
-//Blog Routes
-Route::controller(BlogController::class)->prefix('blog')->as('blog.')->group(function () {
+//Artical Routes
+Route::controller(ArticalController::class)->prefix('artical')->as('artical.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
-    Route::get('/edit/{blog}', 'edit')->name('edit');
+    Route::get('/edit/{artical}', 'edit')->name('edit');
     Route::put('/update', 'update')->name('update');
     Route::delete('/delete', 'destroy')->name('destroy');
 });

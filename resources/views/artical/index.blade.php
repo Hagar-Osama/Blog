@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dashboard | Blogs
+Dashboard | Articals
 @endsection
 @section('css')
 <link href="{{asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -15,12 +15,12 @@ Dashboard | Blogs
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Blog Table</h4>
+                        <h4 class="mb-sm-0">Artical Table</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Blog Table</li>
+                                <li class="breadcrumb-item active">Artical Table</li>
                             </ol>
                         </div>
 
@@ -32,8 +32,8 @@ Dashboard | Blogs
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Blogs
-                                <a href="{{route('blog.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Add Blog</a>
+                            <h4>Articals
+                                <a href="{{route('artical.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Create Artical</a>
                             </h4><br><br>
                             @if(session('message'))
                             <div class="alert alert-success">
@@ -63,20 +63,20 @@ Dashboard | Blogs
 
 
                                 <tbody>
-                                    @foreach($blogs as $blog)
+                                    @foreach($articals as $artical)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{mb_substr($blog->title,0,30). '...'}}</td>
-                                        <td>{{mb_substr($blog->description,0,30). '...'}}</td>
-                                        <td> <img class="rounded avatar-lg" src="{{(! empty($blog->image)) ? asset('storage//blogs/images/'.$blog->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="Blog image">
+                                        <td>{{mb_substr($artical->title,0,30). '...'}}</td>
+                                        <td>{{mb_substr($artical->description,0,30). '...'}}</td>
+                                        <td> <img class="rounded avatar-lg" src="{{(! empty($artical->image)) ? asset('storage//articals/images/'.$artical->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="Artical image">
                                         </td>
-                                        <td>{{$blog->categories->name}}</td>
+                                        <td>{{$artical->category->name}}</td>
                                         <td>
-                                            <a href="{{route('blog.edit', $blog->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
-                                            <form action="{{route('blog.destroy')}}" method="POST" style="display: inline-block;">
+                                            <a href="{{route('artical.edit', $artical->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                                            <form action="{{route('artical.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="hidden" name="blog_id" value="{{$blog->id}}">
+                                                <input type="hidden" name="articalId" value="{{$artical->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
                                         </td>

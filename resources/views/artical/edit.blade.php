@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dashboard | Add Blog
+Dashboard | Edit Artical
 @endsection
 @section('content')
 <div class="main-content">
@@ -11,7 +11,7 @@ Dashboard | Add Blog
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Add Blog</h4><br>
+                            <h4 class="card-title">Edit Artical</h4>
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -22,22 +22,23 @@ Dashboard | Add Blog
                             </div>
                             @endif
 
-                            <form class="custom-validation" action="{{route('blog.store')}}" method="POST" enctype="multipart/form-data">
+                            <form class="custom-validation" action="{{route('artical.update')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
+                                <input type="hidden" name="articalId" value="{{$artical->id}}">
                                 <div class="mb-3">
                                     <label>Title</label>
-                                    <input type="text" name="title" value="{{old('title')}}" class="form-control" required placeholder="Title" />
+                                    <input type="text" name="title" value="{{$artical->title}}" class="form-control" placeholder="Title" />
                                     @error('title')
                                     <span class="text-danger" role="alert">
                                         <strong>{{$message}}</strong>
                                     </span>
                                     @enderror
                                 </div>
-
                                 <div class="mb-3">
                                     <label>Description</label>
                                     <div>
-                                        <textarea name="description" class="form-control" rows="5">{{old('description')}}</textarea>
+                                        <textarea name="description" class="form-control" rows="5">{{$artical->description}}</textarea>
                                     </div>
                                     @error('description')
                                     <span class="text-danger" role="alert">
@@ -45,12 +46,13 @@ Dashboard | Add Blog
                                     </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="validationCustom03" class="form-label">Category Name</label>
                                     <select name="category_id" class="form-select" id="validationCustom03" required>
                                         <option selected disabled value="">Choose...</option>
                                         @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{$category->id}}" {{$category->id == $artical->category_id ? 'selected' : ""}}>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
@@ -67,7 +69,7 @@ Dashboard | Add Blog
                                         <div class="input-group">
 
                                             <input type="file" name="image" class="form-control" id="image">
-                                            <img id="showImage" class="rounded avatar-lg" src="{{asset('backend/assets/images/users/no_image.jpg') }}" style="width: 8%; height:8%;" alt="Blog image">
+                                            <img id="showImage" class="rounded avatar-lg" src="{{(! empty($artical->image)) ? asset('storage/articals/images/'.$artical->image ) : asset('backend/assets/images/users/no_image.jpg') }}" style="width: 8%; height:8%;" alt="Artical image">
                                             @error('image')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -79,7 +81,7 @@ Dashboard | Add Blog
                                 <div class="mb-0">
                                     <div>
                                         <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
-                                            Save
+                                            Update
                                         </button>
                                         <button type="reset" class="btn btn-secondary waves-effect">
                                             Cancel

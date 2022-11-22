@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteBlogRequest extends FormRequest
+class DeleteArticalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class DeleteBlogRequest extends FormRequest
     public function rules()
     {
         return [
-            'blog_id' => 'required|exists:blogs,id'
+            'articalId' => 'required|exists:articals,id'
 
         ];
     }
