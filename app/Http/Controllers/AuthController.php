@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +26,17 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        $role = Role::where('name', 'superAdmin')->first();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' =>$role->id
         ]);
+
+        $permissions = Permission::all();
+        $role->permissions()->attach($permissions);
+
         Auth::login($user);
         return redirect()->route('dashboard');
 
