@@ -16,7 +16,8 @@ class AuthController extends Controller
 {
     public function registerPage()
     {
-        return view('register');
+        $roles = Role::all();
+        return view('register', compact('roles'));
     }
 
     public function loginPage()
@@ -26,16 +27,12 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $role = Role::where('name', 'superAdmin')->first();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' =>$role->id
+            'role_id' =>$request->role_id
         ]);
-
-        $permissions = Permission::all();
-        $role->permissions()->attach($permissions);
 
         Auth::login($user);
         return redirect()->route('dashboard');

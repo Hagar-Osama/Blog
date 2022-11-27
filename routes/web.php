@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticalController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,16 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('logout', [AuthController::class,'logout'])->name('logout');
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::view('/', 'dashboard')->name('dashboard');
+    //Users Routes
+    Route::controller(UserController::class)->prefix('user')->as('users.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{user}', 'edit')->name('edit');
+        Route::put('/update/{role}', 'update')->name('update');
+        Route::delete('/delete', 'destroy')->name('destroy');
+    });
     //Category Routes
     Route::controller(CategoryController::class)->prefix('category')->as('category.')->group(function () {
         Route::get('/', 'index')->name('index');

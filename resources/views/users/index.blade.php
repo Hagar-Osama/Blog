@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dashboard | Articals
+Dashboard | Users
 @endsection
 @section('css')
 <link href="{{asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -15,12 +15,12 @@ Dashboard | Articals
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Artical Table</h4>
+                        <h4 class="mb-sm-0">Users Table</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Artical Table</li>
+                                <li class="breadcrumb-item active">Users Table</li>
                             </ol>
                         </div>
 
@@ -33,9 +33,7 @@ Dashboard | Articals
                     <div class="card">
                         <div class="card-body">
                             <h4>Articals
-                                @if(auth()->user()->roles->hasPermission('create_artical'))
-                                <a href="{{route('artical.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Create Artical</a>
-                                @endif
+                                <a href="{{route('users.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Create User</a>
                             </h4><br><br>
                             @if(session('message'))
                             <div class="alert alert-success">
@@ -55,36 +53,34 @@ Dashboard | Articals
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                        <th>Category Name</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role Name</th>
+                                        <th>Permissions Name</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    @foreach($articals as $artical)
+                                    @foreach($users as $user)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{mb_substr($artical->title,0,30). '...'}}</td>
-                                        <td>{{mb_substr($artical->description,0,30). '...'}}</td>
-                                        <td> <img class="rounded avatar-lg" src="{{(! empty($artical->image)) ? asset('storage//articals/images/'.$artical->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="Artical image">
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->Roles->name}}</td>
+                                        <td>@foreach($user->Roles->permissions as $permission)
+                                           <span  class="badge badge-soft-primary" style="font-size:15px ;">{{$permission->name}}</span>
+                                            @endforeach
                                         </td>
-                                        <td>{{$artical->category->name}}</td>
                                         <td>
-                                        @if(auth()->user()->roles->hasPermission('edit_artical'))
-                                            <a href="{{route('artical.edit', $artical->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
-                                            @endif
-                                            @if(auth()->user()->roles->hasPermission('delete_artical'))
-                                            <form action="{{route('artical.destroy')}}" method="POST" style="display: inline-block;">
+                                            <a href="{{route('users.edit', $user->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                                            <form action="{{route('users.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="hidden" name="articalId" value="{{$artical->id}}">
+                                                <input type="hidden" name="userId" value="{{$user->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
-                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

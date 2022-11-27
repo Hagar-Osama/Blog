@@ -19,6 +19,16 @@
 
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-calendar-2-line"></i>
+                    <span>Users</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{route('users.index')}}">View</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
                     <span>Categories</span>
                 </a>
@@ -30,12 +40,14 @@
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-calendar-2-line"></i>
-                    <span>Artical</span>
+                    <span>Articals</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{route('artical.index')}}">View</a></li>
                 </ul>
             </li>
+
+
 
 
 
