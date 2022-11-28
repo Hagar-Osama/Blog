@@ -35,6 +35,7 @@ class ArticalService extends ArticalController
 
     public function create()
     {
+        $this->authorize('create', $this->articalModel);
         $categories = $this->getAllCategories();
         return view('artical.create', compact('categories'));
     }
@@ -62,6 +63,8 @@ class ArticalService extends ArticalController
 
     public function edit($articalId)
     {
+        $this->authorize('update', $this->articalModel);
+
         $artical = $this->getArticalById($articalId);
         $categories = $this->getAllCategories();
         return view('artical.edit', compact('artical', 'categories'));
@@ -91,6 +94,8 @@ class ArticalService extends ArticalController
 
     public function destroy($request)
     {
+        $this->authorize('delete', $this->articalModel);
+
         $artical = $this->getArticalById($request->articalId);
         $artical->delete();
         if($artical->image) {

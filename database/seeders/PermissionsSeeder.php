@@ -17,11 +17,14 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('permissions')->delete();
         $permissions = [
             'create_artical',
             'edit_artical',
             'delete_artical',
-            'create_user',
+            'create_category',
+            'edit_category',
+            'delete_category',
             'edit_user',
             'delete_user',
             'create_product',

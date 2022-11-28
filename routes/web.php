@@ -35,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
     //Users Routes
     Route::controller(UserController::class)->prefix('user')->as('users.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{user}', 'edit')->name('edit');
         Route::put('/update/{role}', 'update')->name('update');

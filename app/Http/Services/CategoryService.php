@@ -26,6 +26,8 @@ class CategoryService extends CategoryController
 
     public function create()
     {
+        $this->authorize('create', $this->categoryModel);
+
         return view('category.create');
     }
 
@@ -44,6 +46,8 @@ class CategoryService extends CategoryController
 
     public function edit($categoryId)
     {
+        $this->authorize('update', $this->categoryModel);
+
         $category = $this->getCategoryById($categoryId);
         return view('category.edit', compact('category'));
     }

@@ -78,7 +78,7 @@ Dashboard | Edit User
                                     <select name="permissions[]" class="form-select" id="validationCustom03" multiple>
                                         <option selected disabled value="">Choose...</option>
                                         @foreach($permissions as $permission)
-                                        <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                        <option value="{{$permission->id}}"@selected($user->roles->hasPermission($permission->name))>{{$permission->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('permissions')

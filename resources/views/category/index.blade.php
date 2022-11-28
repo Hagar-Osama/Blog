@@ -33,8 +33,10 @@ Dashboard | Categories
                     <div class="card">
                         <div class="card-body">
                             <h4>Categories
+                            @can('create', App\Models\Category::class)
                                 <a href="{{route('category.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Add Category</a>
                             </h4><br><br>
+                            @endcan
                             @if(session('message'))
                             <div class="alert alert-success">
                                 {{session('message')}}
@@ -65,13 +67,17 @@ Dashboard | Categories
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$category->name}}</td>
                                         <td>
+                                        @can('update', $category)
                                             <a href="{{route('category.edit', $category->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                                            @endcan
+                                            @can('update', $category)
                                             <form action="{{route('category.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="category_id" value="{{$category->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
+                                            @endCan
                                         </td>
                                     </tr>
                                     @endforeach

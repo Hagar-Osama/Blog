@@ -22,12 +22,20 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->userModel::get();
-        return view('users.index', compact('users'));
+        // $roleId = Role::where('name', 'superAdmin')->pluck('id');
+        // if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('moderator')) {
+        //     $users = $this->userModel::where('role_id', '<>', $roleId)->get();
+        //     return view('users.index', compact('users'));
+        // }else {
+            $users = $this->userModel::get();
+            return view('users.index', compact('users'));
+       // }
     }
 
     public function edit($userId)
     {
+        $this->authorize('update', $this->userModel);
+
         $user = $this->userModel::findOrFail($userId);
         $permissions = Permission::all();
         $roles = Role::all();
@@ -38,20 +46,20 @@ class UserController extends Controller
     {
         try {
             $user = $this->userModel::findOrFail($request->userId);
-            if(! empty($request->password)) {
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role_id' => $request->role_id
-            ]);
-        }else{
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'role_id' => $request->role_id
-            ]);
-        }
+            if (!empty($request->password)) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'role_id' => $request->role_id
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'role_id' => $request->role_id
+                ]);
+            }
 
             $role->permissions()->attach($request->permissions);
             session()->flash('message', 'User Updated Successfully');
@@ -63,14 +71,10 @@ class UserController extends Controller
 
     public function destroy(DeleteUserRequest $request)
     {
-        if( $this->userModel::where('id', auth()->user()->id)->findOrFail($request->userId)) {
-            return redirect()->back()->withErrors('This User cant be Deleted');
-        }else{
-            $this->userModel::findOrFail($request->userId)->delete();
-            session()->flash('message', 'User Deleted Successfully');
-            return redirect()->route('users.index');
-        }
-        }
+        $this->authorize('delete', $this->userModel);
 
-
+        $this->userModel::findOrFail($request->userId)->delete();
+        session()->flash('message', 'User Deleted Successfully');
+        return redirect()->route('users.index');
+    }
 }

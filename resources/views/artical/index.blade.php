@@ -33,9 +33,7 @@ Dashboard | Articals
                     <div class="card">
                         <div class="card-body">
                             <h4>Articals
-                                @if(auth()->user()->roles->hasPermission('create_artical'))
                                 <a href="{{route('artical.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Create Artical</a>
-                                @endif
                             </h4><br><br>
                             @if(session('message'))
                             <div class="alert alert-success">
@@ -74,17 +72,13 @@ Dashboard | Articals
                                         </td>
                                         <td>{{$artical->category->name}}</td>
                                         <td>
-                                        @if(auth()->user()->roles->hasPermission('edit_artical'))
                                             <a href="{{route('artical.edit', $artical->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
-                                            @endif
-                                            @if(auth()->user()->roles->hasPermission('delete_artical'))
                                             <form action="{{route('artical.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="articalId" value="{{$artical->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
-                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
