@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Permission;
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -16,8 +13,7 @@ class AuthController extends Controller
 {
     public function registerPage()
     {
-        $roles = Role::all();
-        return view('register', compact('roles'));
+        return view('register');
     }
 
     public function loginPage()
@@ -31,7 +27,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' =>$request->role_id
         ]);
 
         Auth::login($user);

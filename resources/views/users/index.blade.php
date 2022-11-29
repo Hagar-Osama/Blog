@@ -32,9 +32,7 @@ Dashboard | Users
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Articals
-                                <!-- <a href="" class="btn btn-primary waves-effect waves-light float-end mb-4">Edit User Permissions</a> -->
-                            </h4><br><br>
+                            <h4>Articals</h4><br><br>
                             @if(session('message'))
                             <div class="alert alert-success">
                                 {{session('message')}}

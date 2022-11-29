@@ -2,6 +2,11 @@
 @section('title')
 Dashboard | Edit User
 @endsection
+@section('css')
+<link href="{{asset('backend/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('backend/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet">
+
+@endsection
 @section('content')
 <div class="main-content">
 
@@ -72,14 +77,15 @@ Dashboard | Edit User
                                     </span>
                                     @enderror
                                 </div>
+                                <div>
+                                    <label class="form-label">Assign  Permission</label>
 
-                                <div class="mb-3">
-                                    <label for="validationCustom03" class="form-label">Assign Permission</label>
-                                    <select name="permissions[]" class="form-select" id="validationCustom03" multiple>
-                                        <option selected disabled value="">Choose...</option>
-                                        @foreach($permissions as $permission)
-                                        <option value="{{$permission->id}}"@selected($user->roles->hasPermission($permission->name))>{{$permission->name}}</option>
-                                        @endforeach
+                                    <select class="select2 form-control select2-multiple" name="permissions[]" multiple="multiple" data-placeholder="Choose A Permission...">
+                                        <optgroup>
+                                            @foreach($permissions as $permission)
+                                            <option value="{{$permission->id}}"@selected($user->roles->hasPermission($permission->name))>{{$permission->name}}</option>
+                                            @endforeach
+                                        </optgroup>
                                     </select>
                                     @error('permissions')
                                     <span class="text-danger" role="alert">
@@ -87,6 +93,8 @@ Dashboard | Edit User
                                     </span>
                                     @enderror
                                 </div>
+                                </div>
+                                <br><br>
                                 <div class="mb-0">
                                     <div>
                                         <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
@@ -123,6 +131,13 @@ Dashboard | Edit User
     });
 </script>
 <script src="{{asset('backend/assets/libs/parsleyjs/parsley.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/spectrum-colorpicker2/spectrum.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js')}}"></script>
+<script src="{{asset('backend/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
 
+<script src="{{asset('backend/assets/js/pages/form-advanced.init.js')}}"></script>
 <script src="{{asset('backend/assets/js/pages/form-validation.init.js')}}"></script>
 @endsection
