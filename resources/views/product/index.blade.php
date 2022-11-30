@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dashboard | Users
+Dashboard | Products
 @endsection
 @section('css')
 <link href="{{asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -15,12 +15,12 @@ Dashboard | Users
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Users Table</h4>
+                        <h4 class="mb-sm-0">Product Table</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Users Table</li>
+                                <li class="breadcrumb-item active">Product Table</li>
                             </ol>
                         </div>
 
@@ -32,7 +32,9 @@ Dashboard | Users
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Articals</h4><br><br>
+                            <h4>Products
+                                <a href="{{route('product.create')}}" class="btn btn-primary waves-effect waves-light float-end mb-4">Create Product</a>
+                            </h4><br><br>
                             @if(session('message'))
                             <div class="alert alert-success">
                                 {{session('message')}}
@@ -52,37 +54,31 @@ Dashboard | Users
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role Name</th>
-                                        <th>Permissions Name</th>
+                                        <th>Description</th>
+                                        <th>Image</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    @foreach($users as $user)
+                                    @foreach($products as $product)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>@if(! empty($user->Roles)) {{$user->Roles->name}}@else <span class="text-danger">No Roles Assigned</span>@endif</td>
-                                        <td> @if($user->Roles)
-
-                                            @foreach($user->Roles->permissions as $permission)
-                                            <span class="badge badge-soft-primary" style="font-size:15px ;">{{$permission->name}}</span>
-                                            @endforeach
-
-                                            @else <span class="text-danger">No Permissions Assigned</span>
-                                            @endif
+                                        <td>{{$product->name}}</td>
+                                        <td>{{mb_substr($product->description,0,30). '...'}}</td>
+                                        <td> <img class="rounded avatar-lg" src="{{(! empty($product->image)) ? asset('storage/products/images/'.$product->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="product image">
                                         </td>
-
+                                        <td>{{$product->quantity}}</td>
+                                        <td>{{$product->price}}</td>
                                         <td>
-                                            <a href="{{route('users.edit', $user->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
-                                            <form action="{{route('users.destroy')}}" method="POST" style="display: inline-block;">
+                                            <a href="{{route('product.edit', $product->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                                            <form action="{{route('product.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="hidden" name="userId" value="{{$user->id}}">
+                                                <input type="hidden" name="productId" value="{{$product->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
                                         </td>

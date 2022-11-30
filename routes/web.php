@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticalController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{artical}', 'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/delete', 'destroy')->name('destroy');
+    });
+
+      //Product Routes
+      Route::controller(ProductController::class)->prefix('product')->as('product.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{product}', 'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete', 'destroy')->name('destroy');
     });

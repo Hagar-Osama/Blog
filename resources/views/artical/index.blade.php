@@ -68,7 +68,7 @@ Dashboard | Articals
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{mb_substr($artical->title,0,30). '...'}}</td>
                                         <td>{{mb_substr($artical->description,0,30). '...'}}</td>
-                                        <td> <img class="rounded avatar-lg" src="{{(! empty($artical->image)) ? asset('storage//articals/images/'.$artical->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="Artical image">
+                                        <td> <img class="rounded avatar-lg" src="{{(! empty($artical->image)) ? asset('storage/articals/images/'.$artical->image ) : asset('backend/assets/images/users/no_image.jpg') }}" alt="Artical image">
                                         </td>
                                         <td>{{$artical->category->name}}</td>
                                         <td>

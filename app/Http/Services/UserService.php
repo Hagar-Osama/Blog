@@ -9,7 +9,8 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
-class UserService extends UserController {
+class UserService extends UserController
+{
 
     private $userModel;
 
@@ -20,14 +21,8 @@ class UserService extends UserController {
 
     public function index()
     {
-        // $roleId = Role::where('name', 'superAdmin')->pluck('id');
-        // if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('moderator')) {
-        //     $users = $this->userModel::where('role_id', '<>', $roleId)->get();
-        //     return view('users.index', compact('users'));
-        // }else {
-            $users = $this->userModel::get();
-            return view('users.index', compact('users'));
-       // }
+        $users = $this->userModel::get();
+        return view('users.index', compact('users'));
     }
 
     public function edit($userId)
@@ -75,6 +70,4 @@ class UserService extends UserController {
         session()->flash('message', 'User Deleted Successfully');
         return redirect()->route('users.index');
     }
-
-
 }
