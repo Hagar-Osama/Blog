@@ -66,15 +66,12 @@ Dashboard | Users
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>@if(! empty($user->Roles)) {{$user->Roles->name}}@else <span class="text-danger">No Roles Assigned</span>@endif</td>
-                                        <td> @if($user->Roles)
+                                        <td>{{$user->Roles->name}}</td>
+                                        <td>
 
                                             @foreach($user->Roles->permissions as $permission)
                                             <span class="badge badge-soft-primary" style="font-size:15px ;">{{$permission->name}}</span>
                                             @endforeach
-
-                                            @else <span class="text-danger">No Permissions Assigned</span>
-                                            @endif
                                         </td>
 
                                         <td>

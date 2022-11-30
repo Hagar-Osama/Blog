@@ -63,6 +63,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                    <select name="role_id" class="form-select" id="validationCustom03" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('role_id')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
 
                             <div class="form-group mb-3 row">
                                 <div class="col-12">
