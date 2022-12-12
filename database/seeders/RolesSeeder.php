@@ -24,9 +24,6 @@ class RolesSeeder extends Seeder
                 'name' => $role
             ]);
         }
-        // $rol = Role::first();
-
-        // $permissions = Permission::all();
-        // $rol->permissions()->attach($permissions);
+      
     }
 }
