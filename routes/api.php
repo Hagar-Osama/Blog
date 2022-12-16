@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
@@ -32,4 +33,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete('/{user}', 'destroy');
     });
     Route::apiResource('/categories', CategoryController::class);
+    Route::apiResource('/articals', ArticalController::class);
+
 });

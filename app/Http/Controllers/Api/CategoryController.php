@@ -30,6 +30,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
+        $this->authorize('create', $this->categoryModel);
 
         $category = $this->categoryModel::create([
             'name' => $request->name
@@ -44,6 +45,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
+        $this->authorize('update', $this->categoryModel);
 
         $category->update([
             'name' => $request->name
@@ -57,6 +59,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        $this->authorize('delete', $this->categoryModel);
+
         $category->delete();
         return $this->success('', 'Category Deleted Successfully', JsonResponse::HTTP_OK);
     }
