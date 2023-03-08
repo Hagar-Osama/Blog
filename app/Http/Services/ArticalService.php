@@ -27,8 +27,10 @@ class ArticalService extends ArticalController
 
     }
 
+
     public function index()
     {
+        $this->authorize('view', $this->articalModel);
         $articals = $this->articalModel::get();
         return view('artical.index', compact('articals'));
     }

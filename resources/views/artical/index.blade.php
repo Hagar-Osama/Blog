@@ -72,13 +72,17 @@ Dashboard | Articals
                                         </td>
                                         <td>{{$artical->category->name}}</td>
                                         <td>
+                                        @can('update', $artical)
                                             <a href="{{route('artical.edit', $artical->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                                            @endcan
+                                            @can('delete', $artical)
                                             <form action="{{route('artical.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="articalId" value="{{$artical->id}}">
                                                 <button type="submit" onclick="return confirm('Are You Sure')" class="btn btn-danger waves-effect waves-light">Delete</button>
                                             </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @endforeach

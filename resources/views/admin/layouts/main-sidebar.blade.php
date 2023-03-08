@@ -38,13 +38,17 @@
             </li>
 
             <li>
+
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-calendar-2-line"></i>
                     <span>Articals</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
+                    @can('view', App\Models\Artical::class)
                     <li><a href="{{route('artical.index')}}">View</a></li>
+                    @endcan
                 </ul>
+
             </li>
 
             <li>

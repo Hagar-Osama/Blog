@@ -70,7 +70,7 @@ Dashboard | Categories
                                         @can('update', $category)
                                             <a href="{{route('category.edit', $category->id)}}" class="btn btn-warning waves-effect waves-light">Edit</a>
                                             @endcan
-                                            @can('update', $category)
+                                            @can('delete', $category)
                                             <form action="{{route('category.destroy')}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')

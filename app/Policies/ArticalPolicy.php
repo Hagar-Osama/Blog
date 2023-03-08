@@ -35,9 +35,9 @@ class ArticalPolicy
      * @param  \App\Models\Artical  $artical
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Artical $artical)
+    public function view(User $user)
     {
-        //
+        return $user->roles->hasPermission('view_artical');
     }
 
     /**
@@ -99,5 +99,10 @@ class ArticalPolicy
     public function forceDelete(User $user, Artical $artical)
     {
         //
+    }
+
+    public function showTable(User $user)
+    {
+        return $user->roles->hasPermission('view_artical');
     }
 }

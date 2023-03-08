@@ -6,6 +6,7 @@ use App\Http\Requests\AddArticalRequest;
 use App\Http\Requests\DeleteArticalRequest;
 use App\Http\Requests\UpdateArticalRequest;
 use App\Http\Services\ArticalService;
+use App\Models\Artical;
 use Illuminate\Http\Request;
 
 class ArticalController extends Controller
